@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 import { Event } from '@prisma/client'
 import { useState } from 'react'
 import NewEventForm from '@/app/ui/new-event-form'
+import { createPortal } from 'react-dom'
 
 
 const localizer = dayjsLocalizer(dayjs)
@@ -30,6 +31,7 @@ export const Calendar = ({ events }: { events: Array<Event> }) => {
                 onSelectSlot={onSelectSlot}
                 selectable
             />
-            {formOpen && <NewEventForm slotInfo={selectedSlotInfo} open={formOpen} addNewEvent={(e) => { }} onCancel={() => setFormOpen(false)} />}
+            {formOpen && createPortal(<NewEventForm slotInfo={selectedSlotInfo} onCancel={() => setFormOpen(false)} />, document.body)}
+            {formOpen && createPortal(<div className="absolute inset-0 z-5 bg-gray-500 bg-blend-overlay opacity-80" />, document.body)}
         </div>)
 }

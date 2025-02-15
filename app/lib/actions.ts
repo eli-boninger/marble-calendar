@@ -3,6 +3,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from '@/app/lib/prisma';
 import dayjs from "dayjs";
+import { revalidateTag } from "next/cache";
 
 const createDatabaseEvent = (title: string, start: string, end: string) => {
     return Prisma.validator<Prisma.EventCreateInput>()({
@@ -19,8 +20,9 @@ export async function createEvent(formData: FormData) {
         end: formData.get('end')
     }
 
-    console.log(rawFormData);
     await prisma.event.create({
         data: createDatabaseEvent(rawFormData.title, dayjs(rawFormData.start).toISOString(), dayjs(rawFormData.end).toISOString())
     })
+    revalidateTag('/')
+
 }
