@@ -1,9 +1,9 @@
 import { Calendar } from "./ui/calendar";
+import prisma from '@/prisma/client';
 
-export default function Home() {
+export default async function Home() {
+  const events = await prisma.event.findMany();
   return (
-    <div>
-      <Calendar />
-    </div>
+    <Calendar events={events} />
   );
 }

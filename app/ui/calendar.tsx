@@ -3,23 +3,15 @@
 import { Calendar as ReactBigCalendar, dayjsLocalizer } from 'react-big-calendar'
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import dayjs from 'dayjs'
+import { Event, Prisma } from '@prisma/client'
 
 const localizer = dayjsLocalizer(dayjs)
 
-export const Calendar = () => {
-    const myEventsList = [
-        {
-            start: dayjs().toDate(),
-            end: dayjs()
-                .add(1, "days")
-                .toDate(),
-        }
-    ]
-    return <ReactBigCalendar
-        localizer={localizer}
-        events={myEventsList}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500, maxWidth: 800 }}
-    />
-}
+export const Calendar = ({ events }: { events: Array<Event> }) =>
+(<ReactBigCalendar
+    localizer={localizer}
+    events={events}
+    startAccessor="start"
+    endAccessor="end"
+    style={{ height: 500, maxWidth: 800 }}
+/>)
