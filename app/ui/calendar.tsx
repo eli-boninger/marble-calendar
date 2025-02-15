@@ -1,17 +1,35 @@
 'use client'
 
-import { Calendar as ReactBigCalendar, dayjsLocalizer } from 'react-big-calendar'
+import { Calendar as ReactBigCalendar, SlotInfo, dayjsLocalizer } from 'react-big-calendar'
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import dayjs from 'dayjs'
-import { Event, Prisma } from '@prisma/client'
+import { Event } from '@prisma/client'
+import { useState } from 'react'
+import NewEventForm from '@/app/ui/new-event-form'
+
 
 const localizer = dayjsLocalizer(dayjs)
 
-export const Calendar = ({ events }: { events: Array<Event> }) =>
-(<ReactBigCalendar
-    localizer={localizer}
-    events={events}
-    startAccessor="start"
-    endAccessor="end"
-    style={{ height: 500, maxWidth: 800 }}
-/>)
+export const Calendar = ({ events }: { events: Array<Event> }) => {
+    const [selectedSlotInfo, setSelectedSlotInfo] = useState<SlotInfo>();
+    const [formOpen, setFormOpen] = useState(false);
+
+    const onSelectSlot = (slotInfo: SlotInfo) => {
+        setSelectedSlotInfo(slotInfo)
+        setFormOpen(true)
+    }
+
+    return (
+        <div className='flex flex-col'>
+            <ReactBigCalendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                style={{ height: 500, maxWidth: 800 }}
+                onSelectSlot={onSelectSlot}
+                selectable
+            />
+            {formOpen && <NewEventForm slotInfo={selectedSlotInfo} open={formOpen} addNewEvent={(e) => { }} onCancel={() => setFormOpen(false)} />}
+        </div>)
+}
