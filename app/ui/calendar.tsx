@@ -22,15 +22,18 @@ export const Calendar = ({ events }: { events: Array<Event> }) => {
 
     return (
         <div className='flex flex-col'>
-            <ReactBigCalendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: 500, maxWidth: 800 }}
-                onSelectSlot={onSelectSlot}
-                selectable
-            />
+            <div inert={formOpen}>
+                <ReactBigCalendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    style={{ height: 500, maxWidth: 800 }}
+                    onSelectSlot={onSelectSlot}
+                    selectable
+                />
+            </div>
+
             {formOpen && createPortal(<NewEventForm slotInfo={selectedSlotInfo} onCancel={() => setFormOpen(false)} />, document.body)}
             {formOpen && createPortal(<div className="absolute inset-0 z-5 bg-gray-500 bg-blend-overlay opacity-80" />, document.body)}
         </div>)

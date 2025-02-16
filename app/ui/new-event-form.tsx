@@ -13,11 +13,12 @@ interface Props {
 export default function NewEventForm(props: Props) {
     const { slotInfo, onCancel } = props;
 
-    return (<div className="absolute m-auto left-0 right-0 z-10 top-10 bg-white border p-8 shadow-md max-w-md">
+    return (<div role='dialog' aria-modal aria-labelledby="form-label" className="absolute m-auto left-0 right-0 z-10 top-10 bg-white border p-8 shadow-md max-w-md">
         <form action={createEvent} onSubmit={onCancel}>
-            <h2 className="text-base/7 font-semibold text-gray-900">Add new event</h2>
+            <h2 className="text-base/7 font-semibold text-gray-900" id="form-label">Add new event</h2>
             <Input label="Title"
                 id="title"
+                autoFocus
                 name="title"
                 type="text"
                 required />

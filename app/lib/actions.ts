@@ -1,27 +1,29 @@
 'use server'
 
-import { Prisma } from "@prisma/client";
 import { prisma } from '@/app/lib/prisma';
 import dayjs from "dayjs";
 import { revalidateTag } from "next/cache";
+import { z } from 'zod';
 
-const createDatabaseEvent = (title: string, start: string, end: string) => {
-    return Prisma.validator<Prisma.EventCreateInput>()({
-        title,
-        start,
-        end
-    })
-}
+const EventFormSchema = z.object({
+    title: z.string(),
+    start: z.string(),
+    end: z.string()
+})
 
 export async function createEvent(formData: FormData) {
-    const rawFormData = {
+    const { title, start, end } = EventFormSchema.parse({
         title: formData.get('title'),
         start: formData.get('start'),
         end: formData.get('end')
-    }
+    })
 
     await prisma.event.create({
-        data: createDatabaseEvent(rawFormData.title, dayjs(rawFormData.start).toISOString(), dayjs(rawFormData.end).toISOString())
+        data: {
+            title: title,
+            start: dayjs(start).toISOString(),
+            end: dayjs(end).toISOString()
+        }
     })
     revalidateTag('/')
 
