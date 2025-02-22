@@ -5,13 +5,13 @@ const prisma = new PrismaClient()
 const events = [
     {
         title: 'Birthday party',
-        start: dayjs().add(8, 'day').hour(19).toDate(),
-        end: dayjs().add(8, 'day').hour(21).minute(30).toDate()
+        start: dayjs().add(8, 'day').hour(19).minute(0).second(0).millisecond(0).toDate(),
+        end: dayjs().add(8, 'day').hour(21).minute(30).second(0).millisecond(0).toDate()
     },
     {
         title: 'Visiting Family',
-        start: dayjs().add(1, 'month').toDate(),
-        end: dayjs().add(1, 'month').add(3, 'day').toDate()
+        start: dayjs().add(1, 'month').hour(0).minute(0).second(0).millisecond(0).toDate(),
+        end: dayjs().add(1, 'month').add(3, 'day').hour(0).minute(0).second(0).millisecond(0).toDate()
     }
 ]
 

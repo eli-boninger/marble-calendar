@@ -2,9 +2,7 @@
 
 This project contains a calendar with a two-way data flow - events are displayed from a PostgreSQL database and new events created are saved to that database.
 
-## Setup
-You will need some PostgreSQL database url to point to.
-
+## Setup steps
 1. Run `npm i`.
 2. Create a `.env` file. 
 3. Create a new postgres database (e.g. named `marble_calendar`)

@@ -15,8 +15,8 @@ datasource db {
 
 model Event {
   id        Int      @id @default(autoincrement())
-  start     DateTime
-  end       DateTime
+  start     DateTime @db.Timestamptz(3)
+  end       DateTime @db.Timestamptz(3)
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
