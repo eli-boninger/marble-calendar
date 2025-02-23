@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client'
-import dayjs from 'dayjs'
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+import dayjs from 'dayjs';
+const prisma = new PrismaClient();
 
 const events = [
     {
@@ -13,7 +13,7 @@ const events = [
         start: dayjs().add(1, 'month').hour(0).minute(0).second(0).millisecond(0).toDate(),
         end: dayjs().add(1, 'month').add(3, 'day').hour(0).minute(0).second(0).millisecond(0).toDate()
     }
-]
+];
 
 async function main() {
     await prisma.event.deleteMany();
@@ -21,13 +21,13 @@ async function main() {
     await prisma.event.createMany({
         data: events,
         skipDuplicates: true
-    })
+    });
 }
 
 main().then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
 }).catch(async (e) => {
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
-})
+});

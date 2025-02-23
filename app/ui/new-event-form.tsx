@@ -45,5 +45,5 @@ export default function NewEventForm(props: Props) {
                     Create
                 </button>
             </div>
-        </form></div>)
+        </form></div>);
 }
